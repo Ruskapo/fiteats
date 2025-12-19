@@ -1,7 +1,18 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom';
 
-export const Header = () => {
+const Header = () => {
   return (
-    <div>Header</div>
+    <header>
+      <NavLink to="/">FitEats</NavLink>
+      {"|"}
+       <NavLink to="recipes">Рецепты</NavLink>
+      {"|"}
+       <NavLink to="favorites">Избранное</NavLink>
+      {"|"}
+    </header>
   )
 }
+
+
+export default Header;

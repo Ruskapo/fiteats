@@ -1,7 +1,10 @@
 import React from 'react'
 
-export const AppContext = () => {
+const AppContext = () => {
   return (
     <div>AppContext</div>
   )
 }
+
+
+export default AppContext;
