@@ -1,14 +1,14 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <header>
-      <NavLink to="/">FitEats</NavLink>
+      <Link to="/">FitEats</Link>
       {"|"}
-       <NavLink to="recipes">Рецепты</NavLink>
+       <Link to="recipes">Рецепты</Link>
       {"|"}
-       <NavLink to="favorites">Избранное</NavLink>
+       <Link to="favorites">Избранное</Link>
       {"|"}
     </header>
   )

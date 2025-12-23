@@ -1,6 +1,12 @@
 import React from 'react'
 import styles from './Home.module.scss';
+import Card from '../../components/Card/Card';
 
+const cards = [
+  {id: 1, title: 'Калории'},
+  {id: 2, title: 'БЖУ'},
+  {id: 3, title: 'Рекомендации'},
+];
 
 
 const Home = () => {
@@ -10,9 +16,9 @@ const Home = () => {
 
 
       <div className={styles.gridCards}>
-        <div className={styles.card}>Калории</div>
-        <div className={styles.card}>БЖУ</div>
-        <div className={styles.card}>Рекомендации</div>
+        {cards.map((item) => (
+          <Card key={item.id} title={item.title} />
+        ))}
 
       </div>
     </section>
