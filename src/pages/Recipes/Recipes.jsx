@@ -12,22 +12,25 @@ const Recipes = () => {
 
   return (
     <>
-      <Search
-        value={search}
-        onChange={setSearch}
-      />
+      <Search value={search} onChange={setSearch} />
       <div className={styles.container}>
-        {filteredRecipes.map((recipe) => (
-          <Card
-            key={recipe.id}
-            title={recipe.title}
-            calories={recipe.calories}
-            protein={recipe.protein}
-            fat={recipe.fat}
-            time={recipe.time}
-            carbs={recipe.carbs}
-          />
-        ))}
+        {filteredRecipes.length === 0 && (
+          <div className={styles.empty}>
+            <h3>Ничего не найдено</h3>
+          </div>
+        )}
+        {filteredRecipes.length > 0 &&
+          filteredRecipes.map((recipe) => (
+            <Card
+              key={recipe.id}
+              title={recipe.title}
+              calories={recipe.calories}
+              protein={recipe.protein}
+              fat={recipe.fat}
+              time={recipe.time}
+              carbs={recipe.carbs}
+            />
+          ))}
       </div>
     </>
   );
