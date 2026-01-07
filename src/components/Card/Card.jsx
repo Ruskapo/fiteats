@@ -1,7 +1,9 @@
 import styles from "./Card.module.scss";
+import { Link } from "react-router-dom";
 
-const Card = ({ title, calories, protein, fat, carbs, time }) => {
+const Card = ({ title, calories, protein, fat, carbs, time, id }) => {
   return (
+    <Link to={`/recipe/${id}`}>
     <div className={styles.card}>
       <h3 className={styles.title}>{title}</h3>
       <div className={styles.meta}>
@@ -14,6 +16,7 @@ const Card = ({ title, calories, protein, fat, carbs, time }) => {
         <span className={styles.badge}>У: {carbs} г</span>
       </div>
     </div>
+    </Link>
   );
 };
 

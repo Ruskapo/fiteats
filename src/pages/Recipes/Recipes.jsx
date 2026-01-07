@@ -23,6 +23,7 @@ const Recipes = () => {
           filteredRecipes.map((recipe) => (
             <Card
               key={recipe.id}
+              id={recipe.id}
               title={recipe.title}
               calories={recipe.calories}
               protein={recipe.protein}
