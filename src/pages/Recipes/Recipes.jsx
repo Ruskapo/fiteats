@@ -4,11 +4,24 @@ import Search from "../../components/Search/Search";
 import recipes from "../../data/recipes";
 import styles from "./Recipes.module.scss";
 
+
 const Recipes = () => {
   const [search, setSearch] = React.useState("");
   const filteredRecipes = recipes.filter((recipe) =>
     recipe.title.toLowerCase().includes(search.toLowerCase())
   );
+
+  const [favorites, setFavorites] = React.useState([]);
+  const toggleFavorite = (id) => {
+    if (favorites.includes(id)) {
+      setFavorites(favorites.filter((itemId) => itemId !== id));
+    
+    } else {
+      setFavorites([...favorites, id]);
+    }
+  };
+
+
 
   return (
     <>
@@ -30,6 +43,8 @@ const Recipes = () => {
               fat={recipe.fat}
               time={recipe.time}
               carbs={recipe.carbs}
+              isFavorite={favorites.includes(recipe.id)}
+              onToggleFavorite={toggleFavorite}
             />
           ))}
       </div>
