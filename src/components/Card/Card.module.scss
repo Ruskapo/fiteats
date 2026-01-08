@@ -1,37 +1,59 @@
 .card {
-    min-height: 140px;
-    background: #b8d6fa;
-    border-radius: 12px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    
+  min-height: 140px;
+  background: #b8d6fa;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
 }
 
 .title {
-    margin: 0;
+  margin: 0;
 }
 
 .meta {
-    display: flex;
-    gap: 12px;
-    color: #4b5563;
-    font-size: 14px;
-    
-    
+  display: flex;
+  gap: 12px;
+  color: #4b5563;
+  font-size: 14px;
 }
 
 .macros {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .badge {
-   background: rgba(255, 255, 255, 0.6);
-   padding: 6px 12px;
-   border-radius: 999px;
-   font-size: 14px;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+.favBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
 
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+
+  display: grid;
+  place-items: center;
+  font-size: 19px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 1);
+  }
+}
+
+.favActive {
+  border-color: rgba(0, 0, 0, 0.25);
 }
