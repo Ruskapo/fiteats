@@ -12,16 +12,23 @@ const Card = ({
   isFavorite,
   onToggleFavorite,
 }) => {
+  const canToggle = typeof onToggleFavorite === "function";
   return (
     <Link to={`/recipe/${id}`}>
       <div className={styles.card}>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            onToggleFavorite(id);
-          }}
-          className={styles.favBtn}> ★ </button>
-        {isFavorite ? "⭐" : "☆"}
+        {canToggle && (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              onToggleFavorite(id);
+            }}
+            className={styles.favBtn}
+          >
+            {" "}
+            {isFavorite ? "⭐" : "☆"}
+          </button>
+        )}
+
         <h3 className={styles.title}>{title}</h3>
         <div className={styles.meta}>
           <span>{calories} ккал </span>

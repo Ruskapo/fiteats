@@ -9,7 +9,7 @@ const Recipe = () => {
   // find — ищет ОДИН элемент в массиве по условию (по id)
   const recipe = recipes.find((item) => item.id === Number(id));
 
-  if (!recipes) {
+  if (!recipe) {
     return <h2>Рецепт не найден</h2>;
   }
   return (
