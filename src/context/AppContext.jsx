@@ -1,7 +1,11 @@
-import  { useState } from 'react'
+import  { createContext, useState } from 'react'
 
-const AppContext = () => {
+export const AppContext = createContext();
+
+const AppProvider = ({children}) => {
   const [favorites, setFavorites] = useState([]);
+
+
   const toggleFavorite = (id) => {
     if (favorites.includes(id)) {
       setFavorites(favorites.filter((itemId) => itemId !== id));
@@ -11,9 +15,11 @@ const AppContext = () => {
     }
   }
   return (
-    <div>AppContext</div>
+    <AppContext.Provider value={{ favorites, toggleFavorite }}>
+      {children}
+    </AppContext.Provider>
   )
 }
 
 
-export default AppContext;
+export default AppProvider;

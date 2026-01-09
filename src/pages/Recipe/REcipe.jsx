@@ -3,8 +3,10 @@ import recipes from "../../data/recipes";
 import styles from "./Recipe.module.scss";
 
 const Recipe = () => {
-  const { id } = useParams();
+  const { id } = useParams(); //useParams — достаёт параметры из URL (например id из /recipe/:id)
 
+
+  // find — ищет ОДИН элемент в массиве по условию (по id)
   const recipe = recipes.find((item) => item.id === Number(id));
 
   if (!recipes) {

@@ -3,23 +3,21 @@ import Card from "../../components/Card/Card";
 import Search from "../../components/Search/Search";
 import recipes from "../../data/recipes";
 import styles from "./Recipes.module.scss";
+import  {useContext} from "react";
+import { AppContext } from "../../context/AppContext";
 
 
 const Recipes = () => {
+  const {favorites, toggleFavorite} = useContext(AppContext);
+
   const [search, setSearch] = React.useState("");
+
   const filteredRecipes = recipes.filter((recipe) =>
     recipe.title.toLowerCase().includes(search.toLowerCase())
   );
 
-  const [favorites, setFavorites] = React.useState([]);
-  const toggleFavorite = (id) => {
-    if (favorites.includes(id)) {
-      setFavorites(favorites.filter((itemId) => itemId !== id));
-    
-    } else {
-      setFavorites([...favorites, id]);
-    }
-  };
+ 
+ 
 
 
 
