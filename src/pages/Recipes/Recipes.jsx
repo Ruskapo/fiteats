@@ -1,25 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "../../components/Card/Card";
 import Search from "../../components/Search/Search";
+import { AppContext } from "../../context/AppContext";
 import recipes from "../../data/recipes";
 import styles from "./Recipes.module.scss";
-import  {useContext} from "react";
-import { AppContext } from "../../context/AppContext";
-
 
 const Recipes = () => {
-  const {favorites, toggleFavorite} = useContext(AppContext);
+  const { favorites, toggleFavorite } = useContext(AppContext);
 
   const [search, setSearch] = React.useState("");
 
-  const filteredRecipes = recipes.filter((recipe) =>
+  const [items, setItems] = React.useState([]);
+  const data = items.length ? items : recipes;
+
+  const filteredRecipes = data.filter((recipe) =>
     recipe.title.toLowerCase().includes(search.toLowerCase())
   );
-
- 
- 
-
-
 
   return (
     <>
