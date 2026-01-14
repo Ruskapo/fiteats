@@ -5,6 +5,8 @@ import { AppContext } from "../../context/AppContext";
 import recipes from "../../data/recipes";
 import styles from "./Recipes.module.scss";
 import { fetchRecipes} from "../../api/recipes";
+import Sceleton from "../../components/Card/Sceleton";
+
 
 const Recipes = () => {
   const { favorites, toggleFavorite } = useContext(AppContext);
@@ -23,6 +25,7 @@ React.useEffect(() => {
 
       const data = await fetchRecipes();
       setItems(data);
+      console.log("MOCK ITEMS:", data);
     } catch (e) {
       setError("Не удалось загрузить рецепты");
     }finally {
@@ -44,7 +47,9 @@ React.useEffect(() => {
 
       {error && <div className={styles.empty}><h3>{error}</h3></div>}
       <div className={styles.container}>
-        {filteredRecipes.length === 0 && (
+        {isLoading &&
+          [...new Array(8)].map((_, index) => <Sceleton key={index} />)}
+        {!isLoading && filteredRecipes.length === 0 && (
           <div className={styles.empty}>
             <h3>Ничего не найдено</h3>
           </div>
@@ -62,7 +67,7 @@ React.useEffect(() => {
               fat={recipe.fat}
               time={recipe.time}
               carbs={recipe.carbs}
-              isFavorite={favorites.includes(recipe.id)}
+              isFavorite={favorites.includes((recipe.id))}
               onToggleFavorite={toggleFavorite}
             />
           ))}

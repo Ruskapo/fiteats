@@ -20,10 +20,13 @@ const Card = ({
           <button
             onClick={(e) => {
               e.preventDefault();
+              console.log("CARD PROPS:", { id, isFavorite, onToggleFavorite });
+
               onToggleFavorite(id);
             }}
             className={styles.favBtn}
           >
+            
             {" "}
             {isFavorite ? "⭐" : "☆"}
           </button>
