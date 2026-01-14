@@ -4,13 +4,34 @@ import Search from "../../components/Search/Search";
 import { AppContext } from "../../context/AppContext";
 import recipes from "../../data/recipes";
 import styles from "./Recipes.module.scss";
+import { fetchRecipes} from "../../api/recipes";
 
 const Recipes = () => {
   const { favorites, toggleFavorite } = useContext(AppContext);
 
   const [search, setSearch] = React.useState("");
-
   const [items, setItems] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [error, setError] = React.useState("");
+
+
+React.useEffect(() => {
+  const load = async () => {
+    try {
+      setIsLoading(true);
+      setError("");
+
+      const data = await fetchRecipes();
+      setItems(data);
+    } catch (e) {
+      setError("Не удалось загрузить рецепты");
+    }finally {
+      setIsLoading(false);
+    }
+  };
+  load();
+}, []);
+
   const data = items.length ? items : recipes;
 
   const filteredRecipes = data.filter((recipe) =>
@@ -20,13 +41,17 @@ const Recipes = () => {
   return (
     <>
       <Search value={search} onChange={setSearch} />
+
+      {error && <div className={styles.empty}><h3>{error}</h3></div>}
       <div className={styles.container}>
         {filteredRecipes.length === 0 && (
           <div className={styles.empty}>
             <h3>Ничего не найдено</h3>
           </div>
         )}
-        {filteredRecipes.length > 0 &&
+
+        {!isLoading && 
+       
           filteredRecipes.map((recipe) => (
             <Card
               key={recipe.id}
