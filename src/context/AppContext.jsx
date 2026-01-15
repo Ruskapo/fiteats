@@ -7,12 +7,10 @@ const AppProvider = ({children}) => {
 
 
   const toggleFavorite = (id) => {
-    if (favorites.includes(id)) {
-      setFavorites(favorites.filter((itemId) => itemId !== id));
-    
-    } else {
-      setFavorites([...favorites, id]);
-    }
+    const idString = String(id);
+    setFavorites((prev) => 
+      prev.includes(idString) ? prev.filter((x) => x !== idString) : [...prev, idString]
+    );
   }
   return (
     <AppContext.Provider value={{ favorites, toggleFavorite }}>

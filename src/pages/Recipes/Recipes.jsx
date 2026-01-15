@@ -67,7 +67,7 @@ React.useEffect(() => {
               fat={recipe.fat}
               time={recipe.time}
               carbs={recipe.carbs}
-              isFavorite={favorites.includes((recipe.id))}
+              isFavorite={favorites.includes(String(recipe.id))}
               onToggleFavorite={toggleFavorite}
             />
           ))}
