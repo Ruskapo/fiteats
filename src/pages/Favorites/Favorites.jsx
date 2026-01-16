@@ -10,7 +10,7 @@ const Favorites = () => {
   // Это ключевая логика всего избранного
   // recipes-весь массив,filter-пробегается по каждому рецепту,favorites.includes(recipe.id)-оставляет только те чей id есть в избранном
   const favoriteRecipes = recipes.filter((recipe) =>
-    favorites.includes(recipe.id)
+    favorites.includes(String(recipe.id))
   );
 
   return (

@@ -25,7 +25,7 @@ React.useEffect(() => {
 
       const data = await fetchRecipes();
       setItems(data);
-      console.log("MOCK ITEMS:", data);
+      ;
     } catch (e) {
       setError("Не удалось загрузить рецепты");
     }finally {
