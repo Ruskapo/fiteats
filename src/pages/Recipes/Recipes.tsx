@@ -2,61 +2,47 @@ import React, { useContext } from "react";
 import Card from "../../components/Card/Card";
 import Search from "../../components/Search/Search";
 import { AppContext } from "../../context/AppContext";
-import recipes from "../../data/recipes";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { fetchRecipes } from "../../redux/slices/recipesSlice";
+
 import styles from "./Recipes.module.scss";
-import { fetchRecipes} from "../../api/recipes";
+
 import Sceleton from "../../components/Card/Sceleton";
 
-
 const Recipes = () => {
+  const [search, setSearch] = React.useState<string>("");
   const { favorites, toggleFavorite } = useContext(AppContext);
+  const dispatch = useAppDispatch();
+  const { recipes, status, error } = useAppSelector((state) => state.recipes);
 
-  const [search, setSearch] = React.useState("");
-  const [items, setItems] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [error, setError] = React.useState("");
+  React.useEffect(() => {
+    dispatch(fetchRecipes());
+  }, [dispatch]);
 
-
-React.useEffect(() => {
-  const load = async () => {
-    try {
-      setIsLoading(true);
-      setError("");
-
-      const data = await fetchRecipes();
-      setItems(data);
-      ;
-    } catch (e) {
-      setError("Не удалось загрузить рецепты");
-    }finally {
-      setIsLoading(false);
-    }
-  };
-  load();
-}, []);
-
-  const data = items.length ? items : recipes;
-
-  const filteredRecipes = data.filter((recipe) =>
-    recipe.title.toLowerCase().includes(search.toLowerCase())
+  const filteredRecipes = recipes.filter((recipe) =>
+    recipe.title.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
     <>
       <Search value={search} onChange={setSearch} />
 
-      {error && <div className={styles.empty}><h3>{error}</h3></div>}
+      {status === "error" && (
+        <div className={styles.empty}>
+          <h3>{error}</h3>
+        </div>
+      )}
       <div className={styles.container}>
-        {isLoading &&
+        {status === "loading" &&
           [...new Array(8)].map((_, index) => <Sceleton key={index} />)}
-        {!isLoading && filteredRecipes.length === 0 && (
+        {status !== "loading" && filteredRecipes.length === 0 && (
           <div className={styles.empty}>
             <h3>Ничего не найдено</h3>
           </div>
         )}
 
-        {!isLoading && 
-       
+        {status !== "error" &&
+          status !== "loading" &&
           filteredRecipes.map((recipe) => (
             <Card
               key={recipe.id}
