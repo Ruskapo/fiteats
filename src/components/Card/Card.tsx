@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
+import { CardType } from "../../@types/card";
 import styles from "./Card.module.scss";
 
-const Card = ({
+const Card: React.FC<CardType> = ({
   title,
   calories,
   protein,
@@ -21,6 +22,7 @@ const Card = ({
           <button
             onClick={(e) => {
               e.preventDefault();
+              e.stopPropagation();
 
               onToggleFavorite(id);
             }}

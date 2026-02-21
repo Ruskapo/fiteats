@@ -1,24 +1,28 @@
-import React, { useContext } from "react";
+import React from "react";
 import Card from "../../components/Card/Card";
+import Sceleton from "../../components/Card/Sceleton";
 import Search from "../../components/Search/Search";
-import { AppContext } from "../../context/AppContext";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { addFavorites } from "../../redux/slices/favoritesSlice";
 import { fetchRecipes } from "../../redux/slices/recipesSlice";
-
 import styles from "./Recipes.module.scss";
 
-import Sceleton from "../../components/Card/Sceleton";
-
-const Recipes = () => {
+// Главная страница с отображением списка рецептов
+const Recipes: React.FC = () => {
+  // Локальное состояние для строки поиска
   const [search, setSearch] = React.useState<string>("");
-  const { favorites, toggleFavorite } = useContext(AppContext);
+  // Получаем список избранных рецептов из Redux
   const dispatch = useAppDispatch();
+  // Получаем список рецептов, статус загрузки и возможную ошибку из Redux
   const { recipes, status, error } = useAppSelector((state) => state.recipes);
+  const favoritesIds = useAppSelector((state) => state.favorites.ids);
 
+  // Загружаем рецепты при монтировании компонента
   React.useEffect(() => {
     dispatch(fetchRecipes());
   }, [dispatch]);
 
+  // Фильтруем рецепты по строке поиска (по названию)
   const filteredRecipes = recipes.filter((recipe) =>
     recipe.title.toLowerCase().includes(search.toLowerCase()),
   );
@@ -53,8 +57,8 @@ const Recipes = () => {
               fat={recipe.fat}
               time={recipe.time}
               carbs={recipe.carbs}
-              isFavorite={favorites.includes(String(recipe.id))}
-              onToggleFavorite={toggleFavorite}
+              isFavorite={favoritesIds.includes(recipe.id)}
+              onToggleFavorite={(id) => dispatch(addFavorites(id))}
             />
           ))}
       </div>

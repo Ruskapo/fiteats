@@ -1,16 +1,21 @@
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import Card from "../../components/Card/Card";
-import { AppContext } from "../../context/AppContext";
-import recipes from "../../data/recipes";
+import { useAppDispatch } from "../../redux/hooks";
+import { RootState } from "../../redux/store";
+
+import { addFavorites } from "../../redux/slices/favoritesSlice";
 import styles from "./Favorites.module.scss";
 
+// Выводим список избранных рецептов, используя данные из Redux
 const Favorites = () => {
-  const { favorites, toggleFavorite } = useContext(AppContext);
-
-  // Это ключевая логика всего избранного
-  // recipes-весь массив,filter-пробегается по каждому рецепту,favorites.includes(recipe.id)-оставляет только те чей id есть в избранном
+  const dispatch = useAppDispatch();
+  // Получаем список ID избранных рецептов и все рецепты из Redux
+  const favoritesIds = useSelector((state: RootState) => state.favorites.ids);
+  // Фильтруем рецепты, чтобы получить только те, которые находятся в избранном
+  const recipes = useSelector((state: RootState) => state.recipes.recipes);
+  // Получаем список рецептов, которые находятся в избранном
   const favoriteRecipes = recipes.filter((recipe) =>
-    favorites.includes(String(recipe.id))
+    favoritesIds.includes(recipe.id),
   );
 
   return (
@@ -39,8 +44,8 @@ const Favorites = () => {
               fat={recipe.fat}
               time={recipe.time}
               carbs={recipe.carbs}
-              isFavorite={favorites.includes(recipe.id)}
-              onToggleFavorite={toggleFavorite}
+              isFavorite={favoritesIds.includes(recipe.id)}
+              onToggleFavorite={(id) => dispatch(addFavorites(id))}
             />
           ))}
         </div>
