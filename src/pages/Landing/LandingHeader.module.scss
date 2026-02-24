@@ -1,0 +1,51 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 60px;
+  background: #ffffff;
+}
+
+.logo {
+  display: inline-block;
+  transition: opacity 0.2s ease;
+  font-size: 28px;
+  font-weight: 800;
+  color: #14bb5a;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.logo:hover {
+  color: #27fe60;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.select {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  font-size: 14px;
+  outline: none;
+}
+
+.button {
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: #14bb5a;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  background: #16643d;
+  transform: translateY(-2px);
+}
