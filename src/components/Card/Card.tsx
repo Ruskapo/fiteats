@@ -18,6 +18,10 @@ const Card: React.FC<CardType> = ({
   return (
     <Link to={`/recipe/${id}`}>
       <div className={styles.card}>
+        <button className={styles.plusBth}>
+          +
+
+        </button>
         {canToggle && (
           <button
             onClick={(e) => {
