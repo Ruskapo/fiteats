@@ -2,6 +2,7 @@ import React from "react";
 import { CardType } from "../../@types/card";
 import Card from "../../components/Card/Card";
 import styles from "./Home.module.scss";
+import { useAppSelector } from "../../redux/hooks";
 
 const cards: CardType[] = [
   {
@@ -37,9 +38,12 @@ const cards: CardType[] = [
 ];
 
 const Home: React.FC = () => {
+  const todayItems = useAppSelector((state) => state.today.items);
+
+
   return (
     <section className={styles.container}>
-      <h1 className={styles.title}>Сегодня</h1>
+      <h1 className={styles.title}>({todayItems.length}) Сегодня</h1>
 
       <div className={styles.gridCards}>
         {cards.map((item) => (

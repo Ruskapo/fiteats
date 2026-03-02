@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { CardType } from "../../@types/card";
 import styles from "./Card.module.scss";
+import { addToday } from "../../redux/slices/todaySlice";
+import { useAppDispatch } from "../../redux/hooks";
 
 const Card: React.FC<CardType> = ({
   title,
@@ -13,14 +15,24 @@ const Card: React.FC<CardType> = ({
   isFavorite,
   onToggleFavorite,
 }) => {
+  // Проверяем, передана ли функция для добавления в избранное
   const canToggle = typeof onToggleFavorite === "function";
+
+  const dispatch = useAppDispatch();
 
   return (
     <Link to={`/recipe/${id}`}>
       <div className={styles.card}>
-        <button className={styles.plusBth}>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dispatch(addToday({ recipeId: id, meal: "lunch" }));
+            console.log('added', id);
+          }}
+          className={styles.plusBth}
+        >
           +
-
         </button>
         {canToggle && (
           <button

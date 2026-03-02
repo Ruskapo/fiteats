@@ -1,22 +1,28 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TodayType } from "../../@types/today";
+import { TodayItem, TodayState } from "../../@types/today";
 
-const initialState: TodayType = {
-    items: [],
-}
+const initialState: TodayState = {
+  items: [],
+};
 
+const todaySlice = createSlice({
+  name: "today",
+  initialState,
+  reducers: {
+    addToday(state, action: PayloadAction<TodayItem>) {
+      // Получаем ID рецепта и тип приема пищи из действия
+      const { recipeId, meal } = action.payload;
+      // Проверяем, добавлен ли уже этот рецепт в этот же приём пищи.
+      // some() вернёт true, если найдётся хотя бы один item с таким же recipeId и meal.
+      const exists = state.items.some(
+        (item) => item.recipeId === recipeId && item.meal === meal,
+      );
+      if (!exists) {
+        state.items.push(action.payload);
+      }
+    },
+  },
+});
 
-
-const todaySlice = createSlice ({
-    name: "today",
-    initialState,
-    reducers: {
-        addToday(state, action: PayloadAction<any>) {
-            // Получить рейепт 
-        }
-    }
-})
-
-
-export const { addToday} = todaySlice.actions;
+export const { addToday } = todaySlice.actions;
 export default todaySlice.reducer;
