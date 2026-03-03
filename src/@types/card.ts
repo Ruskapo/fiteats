@@ -9,5 +9,5 @@ export type CardType = {
   time: number;
   isFavorite: boolean;
   onToggleFavorite?: (id: string) => void;
+  onAddToToday?: (id: string) => void;
 };
-

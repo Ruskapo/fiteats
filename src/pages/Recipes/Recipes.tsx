@@ -1,10 +1,13 @@
 import React from "react";
+import { MealType } from "../../@types/today";
 import Card from "../../components/Card/Card";
 import Sceleton from "../../components/Card/Sceleton";
 import Search from "../../components/Search/Search";
+import MealModal from "../../components/UI/MealModal/MealModal";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addFavorites } from "../../redux/slices/favoritesSlice";
 import { fetchRecipes } from "../../redux/slices/recipesSlice";
+import { addToday } from "../../redux/slices/todaySlice";
 import styles from "./Recipes.module.scss";
 
 // Главная страница с отображением списка рецептов
@@ -26,6 +29,27 @@ const Recipes: React.FC = () => {
   const filteredRecipes = recipes.filter((recipe) =>
     recipe.title.toLowerCase().includes(search.toLowerCase()),
   );
+
+  const [isMaelModalOpen, setIsModalOpen] = React.useState(false);
+  const [selectedRecipeId, setSelectedRecipeId] = React.useState<string | null>(
+    null,
+  );
+
+  const handleOpenMealModal = (id: string) => {
+    setSelectedRecipeId(id);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseMealModal = () => {
+    setIsModalOpen(false);
+    setSelectedRecipeId(null);
+  };
+
+  const handleSelectMeal = (meal: MealType) => {
+    if (!selectedRecipeId) return;
+    dispatch(addToday({ recipeId: selectedRecipeId, meal }));
+    handleCloseMealModal();
+  };
 
   return (
     <>
@@ -59,9 +83,15 @@ const Recipes: React.FC = () => {
               carbs={recipe.carbs}
               isFavorite={favoritesIds.includes(recipe.id)}
               onToggleFavorite={(id) => dispatch(addFavorites(id))}
+              onAddToToday={handleOpenMealModal}
             />
           ))}
       </div>
+      <MealModal
+        isOpen={isMaelModalOpen}
+        onClose={handleCloseMealModal}
+        onSelect={handleSelectMeal}
+      />
     </>
   );
 };

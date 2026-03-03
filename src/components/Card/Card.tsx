@@ -14,6 +14,7 @@ const Card: React.FC<CardType> = ({
   id,
   isFavorite,
   onToggleFavorite,
+  onAddToToday,
 }) => {
   // Проверяем, передана ли функция для добавления в избранное
   const canToggle = typeof onToggleFavorite === "function";
@@ -28,7 +29,7 @@ const Card: React.FC<CardType> = ({
             e.preventDefault();
             e.stopPropagation();
             dispatch(addToday({ recipeId: id, meal: "lunch" }));
-            console.log('added', id);
+            onAddToToday?.(id);
           }}
           className={styles.plusBth}
         >

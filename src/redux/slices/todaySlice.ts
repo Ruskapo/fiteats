@@ -17,6 +17,7 @@ const todaySlice = createSlice({
       const exists = state.items.some(
         (item) => item.recipeId === recipeId && item.meal === meal,
       );
+
       if (!exists) {
         state.items.push(action.payload);
       }
