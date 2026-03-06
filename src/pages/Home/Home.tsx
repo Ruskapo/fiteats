@@ -1,65 +1,62 @@
 import React from "react";
-import { CardType } from "../../@types/card";
-import Card from "../../components/Card/Card";
-import styles from "./Home.module.scss";
+import { TodayFullItem} from "../../@types/home";
 import { useAppSelector } from "../../redux/hooks";
+import styles from "./Home.module.scss";
 
-const cards: CardType[] = [
-  {
-    id: "1",
-    title: "Калории",
-    calories: 500,
-    protein: 30,
-    fat: 15,
-    carbs: 60,
-    time: 20,
-    isFavorite: false,
-  },
-  {
-    id: "2",
-    title: "БЖУ",
-    calories: 420,
-    protein: 25,
-    fat: 12,
-    carbs: 55,
-    time: 15,
-    isFavorite: false,
-  },
-  {
-    id: "3",
-    title: "Рекомендации",
-    calories: 350,
-    protein: 20,
-    fat: 10,
-    carbs: 40,
-    time: 10,
-    isFavorite: false,
-  },
-];
+
 
 const Home: React.FC = () => {
   const todayItems = useAppSelector((state) => state.today.items);
+  const recipes = useAppSelector((state) => state.recipes.recipes);
+  const status = useAppSelector((state) => state.recipes.status);
 
+  const todayFull: TodayFullItem[] = [];
+  for (const item of todayItems) {
+    const found = recipes.find((r) => r.id === item.recipeId);
+    if (found) {
+      todayFull.push({ meal: item.meal, recipe: found });
+    }
+  }
+
+  const breakfast = todayFull.filter((x) => x.meal === "breakfast");
+  const lunch = todayFull.filter((x) => x.meal === "lunch");
+  const dinner = todayFull.filter((x) => x.meal === "dinner");
+
+  const totals = todayFull.reduce(
+  (acc, x) => {
+    acc.calories += x.recipe.calories;
+    acc.protein += x.recipe.protein;
+    acc.fat += x.recipe.fat;
+    acc.carbs += x.recipe.carbs;
+
+    return acc;
+  },
+  { calories: 0, protein: 0, fat: 0, carbs: 0 },
+);
 
   return (
     <section className={styles.container}>
-      <h1 className={styles.title}>({todayItems.length}) Сегодня</h1>
+      <h1>Сегодня ({todayItems.length})</h1>
 
-      <div className={styles.gridCards}>
-        {cards.map((item) => (
-          <Card
-            key={item.id}
-            id={item.id}
-            title={item.title}
-            calories={item.calories}
-            protein={item.protein}
-            fat={item.fat}
-            carbs={item.carbs}
-            time={item.time}
-            isFavorite={item.isFavorite}
-          />
-        ))}
-      </div>
+      {status === "loading" ? (
+        <p>Загрузка...</p>
+      ) : (
+        <div>
+          <p>Загружено рецептов: {recipes.length}</p>
+          <p>Завтрак: {breakfast.length}</p>
+          <p>Обед: {lunch.length}</p>
+          <p>Ужин: {dinner.length}</p>
+
+          <hr />
+
+          <p>Итого ккал: {totals.calories}</p>
+          <p>Б: {totals.protein} г</p>
+          <p>Ж: {totals.fat} г</p>
+          <p>У: {totals.carbs} г</p>
+        </div>
+
+      )}
+     
     </section>
   );
 };
