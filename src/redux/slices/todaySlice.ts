@@ -22,8 +22,16 @@ const todaySlice = createSlice({
         state.items.push(action.payload);
       }
     },
+
+    removeToday(state, action: PayloadAction<TodayItem>) {
+      const { recipeId, meal } = action.payload;
+
+      state.items = state.items.filter((obj) => {
+        return obj.recipeId !== recipeId || obj.meal !== meal;
+      });
+    },
   },
 });
 
-export const { addToday } = todaySlice.actions;
+export const { addToday, removeToday } = todaySlice.actions;
 export default todaySlice.reducer;

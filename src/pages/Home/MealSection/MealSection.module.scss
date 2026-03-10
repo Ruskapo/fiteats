@@ -17,10 +17,29 @@
 .item {
   padding: 8px 12px;
   border-radius: 8px;
-  background: #1f60e1;
+  background: #f5f7fb;
   margin-bottom: 8px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.delete {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  font-size: 16px;
+  color: #999;
+
+  margin-left: 12px;
+  padding: 4px;
+
+  transition: all 0.2s ease;
+}
+
+.delete:hover {
+  color: #ff4d4f;
+  transform: scale(1.15);
 }
