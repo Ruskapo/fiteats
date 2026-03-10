@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TodayItem, TodayState } from "../../@types/today";
+import { loadTodayItems } from "../../utils/localStorage";
 
 const initialState: TodayState = {
-  items: [],
+  items: loadTodayItems(),
 };
 
 const todaySlice = createSlice({
