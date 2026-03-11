@@ -3,6 +3,9 @@ import { TodayFullItem } from "../../@types/home";
 import MealSection from "../../pages/Home/MealSection/MealSection";
 import { useAppSelector } from "../../redux/hooks";
 import styles from "./Home.module.scss";
+import MealSectionSkeleton from "./MealSection/MealSectionSkeleton";
+import TodaySummary from "./TodaySummary/TodaySummary";
+import TodaySummarySkeleton from "./TodaySummary/TodaySummarySkeleton";
 
 const Home: React.FC = () => {
   const todayItems = useAppSelector((state) => state.today.items);
@@ -33,26 +36,30 @@ const Home: React.FC = () => {
     { calories: 0, protein: 0, fat: 0, carbs: 0 },
   );
 
-  return (
-    <section className={styles.container}>
-      <h1>Сегодня</h1>
+  if (status === "loading") {
+    return (
+      <div className={styles.home}>
+        <TodaySummarySkeleton />
 
-      {status === "loading" ? (
-        <p>Загрузка...</p>
-      ) : (
-        <div>
-          <p>Добавлено рецептов: {todayItems.length}</p>
-          <p>Калории: {totals.calories}</p>
-          <p>Б: {totals.protein} г</p>
-          <p>Ж: {totals.fat} г</p>
-          <p>У: {totals.carbs} г</p>
-
-          <MealSection title="Завтрак" items={breakfast} />
-          <MealSection title="Обед" items={lunch} />
-          <MealSection title="Ужин" items={dinner} />
+        <div className={styles.grid}>
+          <MealSectionSkeleton />
+          <MealSectionSkeleton />
+          <MealSectionSkeleton />
         </div>
-      )}
-    </section>
+      </div>
+    );
+  }
+
+  return (
+    <div className={styles.home}>
+      <TodaySummary todayCount={todayItems.length} totals={totals} />
+
+      <div className={styles.grid}>
+        <MealSection title="Завтрак" items={breakfast} />
+        <MealSection title="Обед" items={lunch} />
+        <MealSection title="Ужин" items={dinner} />
+      </div>
+    </div>
   );
 };
 

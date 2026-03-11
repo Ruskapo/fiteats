@@ -9,17 +9,23 @@ const MealSection: React.FC<MealSectionProps> = ({ title, items }) => {
 
   return (
     <section className={styles.section}>
-      <h2 className={styles.title}>
-        {title} ({items.length})
-      </h2>
+      <div className={styles.header}>
+        <h3 className={styles.title}>{title}</h3>
+        <span className={styles.count}>{items.length}</span>
+      </div>
 
       {items.length === 0 ? (
-        <p>Пока пусто</p>
+        <p className={styles.empty}>Пока пусто</p>
       ) : (
         <ul className={styles.list}>
           {items.map((item) => (
             <li key={`${item.meal}-${item.recipe.id}`} className={styles.item}>
-              {item.recipe.title} - {item.recipe.calories} ккал
+              <div className={styles.info}>
+                <span className={styles.name}>{item.recipe.title}</span>
+                <span className={styles.calories}>
+                  {item.recipe.calories} ккал
+                </span>
+              </div>
               <button
                 className={styles.delete}
                 title="Удалить"

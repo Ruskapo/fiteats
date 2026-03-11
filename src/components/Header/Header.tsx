@@ -1,20 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styles from "./Header.module.scss";
 
 const Header = () => {
   return (
     <header className={styles.header}>
-      <Link className={styles.logo} to="/app">
-        FitEats
-      </Link>
-      <div className={styles.nav}>
-        <Link className={styles.link} to="/app/recipes">
-          Рецепты
+      <div className={styles.top}>
+        <Link to="/" className={styles.logo}>
+          FitEats
         </Link>
+      </div>
 
-        <Link className={styles.link} to="/app/favorites">
+      <div className={styles.navbar}>
+        <NavLink className={styles.link} to="/app">
+          Главная
+        </NavLink>
+
+        <NavLink className={styles.link} to="/app/recipes">
+          Рецепты
+        </NavLink>
+
+        <NavLink className={styles.link} to="/app/favorites">
           Избранное
-        </Link>
+        </NavLink>
       </div>
     </header>
   );
