@@ -2,50 +2,137 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 60px;
-  background: #ffffff;
+  padding: 18px 32px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+  position: relative;
+  z-index: 20;
 }
 
 .logo {
   display: inline-block;
-  transition: opacity 0.2s ease;
   font-size: 28px;
   font-weight: 800;
   color: #14bb5a;
   text-decoration: none;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.6px;
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease,
+    opacity 0.25s ease;
 }
 
 .logo:hover {
-  color: #27fe60;
+  color: #10a34d;
+  transform: translateY(-1px);
+  opacity: 0.95;
 }
 
 .right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 14px;
 }
 
 .select {
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
-  background: #f9fafb;
-  font-size: 14px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  color: #111827;
   outline: none;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.select:hover {
+  border-color: rgba(20, 187, 90, 0.35);
+  transform: translateY(-1px);
+}
+
+.select:focus {
+  border-color: rgba(20, 187, 90, 0.55);
+  box-shadow: 0 0 0 4px rgba(20, 187, 90, 0.12);
 }
 
 .button {
-  padding: 8px 16px;
-  border-radius: 10px;
-  background: #14bb5a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #14bb5a 0%, #10a34d 100%);
   color: #fff;
   text-decoration: none;
-  font-weight: 500;
-  transition: all 0.2s ease;
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: 0 10px 24px rgba(20, 187, 90, 0.18);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
 }
 
 .button:hover {
-  background: #16643d;
   transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(20, 187, 90, 0.26);
+  filter: brightness(1.03);
+}
+
+.button:active {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 16px 20px;
+  }
+
+  .logo {
+    font-size: 24px;
+  }
+
+  .right {
+    gap: 10px;
+  }
+
+  .select {
+    padding: 9px 12px;
+    font-size: 14px;
+  }
+
+  .button {
+    padding: 9px 14px;
+    font-size: 14px;
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 14px 16px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  .right {
+    gap: 8px;
+  }
+
+  .select {
+    padding: 8px 10px;
+  }
+
+  .button {
+    padding: 8px 12px;
+  }
 }
