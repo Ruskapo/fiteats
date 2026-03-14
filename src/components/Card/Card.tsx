@@ -18,33 +18,36 @@ const Card: React.FC<CardType> = ({
   const canToggle = typeof onToggleFavorite === "function";
 
   return (
-    <Link to={`/recipe/${id}`}>
+    <Link to={`/app/recipes/${id}`} className={styles.cardLink}>
       <div className={styles.card}>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
+        <div className={styles.actions}>
+          {canToggle && (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
 
-            onAddToToday?.(id);
-          }}
-          className={styles.plusBth}
-        >
-          +
-        </button>
-        {canToggle && (
+                onToggleFavorite(id);
+              }}
+              className={`${styles.iconBtn} ${styles.favBtn} ${isFavorite ? styles.favActive : ""}`}
+              title="Добавить в избранное"
+            >
+              {isFavorite ? "♥" : "♡"}
+            </button>
+          )}
           <button
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
 
-              onToggleFavorite(id);
+              onAddToToday?.(id);
             }}
-            className={styles.favBtn}
+            className={`${styles.iconBtn} ${styles.plusBtn}`}
+            title="Добавить в рацион"
           >
-            {" "}
-            {isFavorite ? "⭐" : "☆"}
+            +
           </button>
-        )}
+        </div>
 
         <h3 className={styles.title}>{title}</h3>
         <div className={styles.meta}>

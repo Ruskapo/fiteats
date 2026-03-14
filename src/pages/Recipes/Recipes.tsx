@@ -53,45 +53,56 @@ const Recipes: React.FC = () => {
 
   return (
     <>
-      <Search value={search} onChange={setSearch} />
+      <div className={styles.page}>
+        <div className={styles.topbar}>
+          <div>
+            <h1 className={styles.heading}>Рецепты</h1>
+            <p className={styles.subtext}>
+              Выбирай блюда, добавляй в рацион и сохраняй любимые
+            </p>
+          </div>
 
-      {status === "error" && (
-        <div className={styles.empty}>
-          <h3>{error}</h3>
+          <Search value={search} onChange={setSearch} />
         </div>
-      )}
-      <div className={styles.container}>
-        {status === "loading" &&
-          [...new Array(8)].map((_, index) => <Sceleton key={index} />)}
-        {status !== "loading" && filteredRecipes.length === 0 && (
+
+        {status === "error" && (
           <div className={styles.empty}>
-            <h3>Ничего не найдено</h3>
+            <h3>{error}</h3>
           </div>
         )}
+        <div className={styles.container}>
+          {status === "loading" &&
+            [...new Array(8)].map((_, index) => <Sceleton key={index} />)}
+          {status !== "loading" && filteredRecipes.length === 0 && (
+            <div className={styles.empty}>
+              <h3>Ничего не найдено</h3>
+            </div>
+          )}
 
-        {status !== "error" &&
-          status !== "loading" &&
-          filteredRecipes.map((recipe) => (
-            <Card
-              key={recipe.id}
-              id={recipe.id}
-              title={recipe.title}
-              calories={recipe.calories}
-              protein={recipe.protein}
-              fat={recipe.fat}
-              time={recipe.time}
-              carbs={recipe.carbs}
-              isFavorite={favoritesIds.includes(recipe.id)}
-              onToggleFavorite={(id) => dispatch(addFavorites(id))}
-              onAddToToday={handleOpenMealModal}
-            />
-          ))}
+          {status !== "error" &&
+            status !== "loading" &&
+            filteredRecipes.map((recipe) => (
+              <Card
+                key={recipe.id}
+                id={recipe.id}
+                title={recipe.title}
+                calories={recipe.calories}
+                protein={recipe.protein}
+                fat={recipe.fat}
+                time={recipe.time}
+                carbs={recipe.carbs}
+                isFavorite={favoritesIds.includes(recipe.id)}
+                onToggleFavorite={(id) => dispatch(addFavorites(id))}
+                onAddToToday={handleOpenMealModal}
+              />
+            ))}
+        </div>
+        <MealModal
+          isOpen={isMaelModalOpen}
+          onClose={handleCloseMealModal}
+          onSelect={handleSelectMeal}
+        />
       </div>
-      <MealModal
-        isOpen={isMaelModalOpen}
-        onClose={handleCloseMealModal}
-        onSelect={handleSelectMeal}
-      />
     </>
   );
 };

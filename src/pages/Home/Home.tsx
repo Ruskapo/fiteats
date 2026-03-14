@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import React from "react";
 import { TodayFullItem } from "../../@types/home";
 import MealSection from "../../pages/Home/MealSection/MealSection";
@@ -41,11 +42,23 @@ const Home: React.FC = () => {
       <div className={styles.home}>
         <TodaySummarySkeleton />
 
-        <div className={styles.grid}>
+        <motion.div
+          className={styles.grid}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.15,
+              },
+            },
+          }}
+        >
           <MealSectionSkeleton />
           <MealSectionSkeleton />
           <MealSectionSkeleton />
-        </div>
+        </motion.div>
       </div>
     );
   }

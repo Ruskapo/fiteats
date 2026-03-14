@@ -1,41 +1,76 @@
 .search {
   position: relative;
   display: inline-block;
+  margin-bottom: 20px;
 }
 
 .input {
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  padding: 12px 20px;
-  padding-left: 42px;
-  width: 200px;
-  border-radius: 10px;
-  font-size: 16px;
-  transition: all 0.15s ease-in-out;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: #ffffff;
+  padding: 14px 44px 14px 44px;
+  width: 260px;
+  border-radius: 16px;
+  font-size: 15px;
+  color: #0f172a;
+  box-shadow:
+    0 8px 20px rgba(15, 23, 42, 0.04),
+    0 2px 8px rgba(15, 23, 42, 0.03);
+  transition:
+    width 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  outline: none;
+}
 
-  &:focus {
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    width: 250px;
-  }
+.input::placeholder {
+  color: #94a3b8;
+}
+
+.input:focus {
+  width: 300px;
+  border-color: rgba(20, 187, 90, 0.25);
+  box-shadow:
+    0 10px 24px rgba(20, 187, 90, 0.08),
+    0 0 0 4px rgba(20, 187, 90, 0.08);
 }
 
 .icon {
-  width: 32px;
-  height: 22px;
-  opacity: 0.3;
+  width: 18px;
+  height: 18px;
+  opacity: 0.45;
   position: absolute;
-  left: 4px;
-  top: 10px;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .clearIcon {
-  width: 18px;
-  height: 18px;
-  opacity: 0.3;
+  width: 16px;
+  height: 16px;
+  opacity: 0.35;
   position: absolute;
-  right: 15px;
-  top: 14px;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
-  &:hover {
-    opacity: 0.8;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.clearIcon:hover {
+  opacity: 0.8;
+  transform: translateY(-50%) scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .search {
+    display: block;
+    width: 100%;
+  }
+
+  .input,
+  .input:focus {
+    width: 100%;
   }
 }

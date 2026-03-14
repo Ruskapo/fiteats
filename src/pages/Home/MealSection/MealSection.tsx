@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import React from "react";
 import { MealSectionProps } from "../../../@types/MealSectoin";
 import { useAppDispatch } from "../../../redux/hooks";
@@ -8,7 +9,15 @@ const MealSection: React.FC<MealSectionProps> = ({ title, items }) => {
   const dispatch = useAppDispatch();
 
   return (
-    <section className={styles.section}>
+    <motion.section
+      className={styles.section}
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 },
+      }}
+      transition={{ duration: 0.5 }}
+      whileHover={{ y: -4 }}
+    >
       <div className={styles.header}>
         <h3 className={styles.title}>{title}</h3>
         <span className={styles.count}>{items.length}</span>
@@ -44,7 +53,7 @@ const MealSection: React.FC<MealSectionProps> = ({ title, items }) => {
           ))}
         </ul>
       )}
-    </section>
+    </motion.section>
   );
 };
 

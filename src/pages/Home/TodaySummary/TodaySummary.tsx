@@ -1,10 +1,16 @@
+import { motion } from "motion/react";
 import React from "react";
 import { TodaySummaryProps } from "../../../@types/Summary";
 import styles from "../TodaySummary/TodaySummary.module.scss";
 
 const TodaySummary: React.FC<TodaySummaryProps> = ({ todayCount, totals }) => {
   return (
-    <section className={styles.summary}>
+    <motion.section
+      className={styles.summary}
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+    >
       <div className={styles.header}>
         <h2 className={styles.title}>Сегодня</h2>
         <p className={styles.count}>Добалено рецептов: {todayCount}</p>
@@ -30,7 +36,7 @@ const TodaySummary: React.FC<TodaySummaryProps> = ({ todayCount, totals }) => {
           <strong className={styles.value}>{totals.carbs} г</strong>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

@@ -1,7 +1,24 @@
 .home {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 24px 16px 40px;
+  padding: 28px 16px 44px;
+  position: relative;
+}
+
+/*  фон */
+.home::before {
+  content: "";
+  position: absolute;
+  inset: -120px -200px auto -200px;
+  height: 500px;
+  z-index: -1;
+
+  background:
+    radial-gradient(circle at 20% 20%, rgba(20, 187, 90, 0.08), transparent 35%),
+    radial-gradient(circle at 80% 0%, rgba(20, 187, 90, 0.05), transparent 40%);
+
+  filter: blur(10px);
+  pointer-events: none;
 }
 
 .grid {
