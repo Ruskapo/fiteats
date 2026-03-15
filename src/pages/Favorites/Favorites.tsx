@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Card from "../../components/Card/Card";
 import { useAppDispatch } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
@@ -19,20 +20,31 @@ const Favorites = () => {
   );
 
   return (
-    <>
-      <div className={styles.page}>
-        <div className={styles.title}>Избранное</div>
+    <div className={styles.page}>
+      <div className={styles.top}>
+        <div>
+          <h1 className={styles.title}>Избранное</h1>
+          <p className={styles.subtext}>
+            Здесь собраны рецепты, которые ты сохранил для себя
+          </p>
+        </div>
+
         <span className={styles.count}>{favoriteRecipes.length}</span>
       </div>
 
-      {favoriteRecipes.length === 0 && (
+      {favoriteRecipes.length === 0 ? (
         <div className={styles.empty}>
-          <h3 className={styles.emtyTitle}>Избранное пусто</h3>
-          <p className={styles.emtyText}>Добавь рецепты, нажав ⭐ </p>
-        </div>
-      )}
+          <div className={styles.emptyIcon}>♡</div>
+          <h3 className={styles.emptyTitle}>Избранное пока пусто</h3>
+          <p className={styles.emptyText}>
+            Добавь понравившиеся рецепты, нажимая на сердечко
+          </p>
 
-      {favoriteRecipes.length > 0 && (
+          <Link to="/app/recipes" className={styles.emptyButton}>
+            Перейти к рецептам
+          </Link>
+        </div>
+      ) : (
         <div className={styles.grid}>
           {favoriteRecipes.map((recipe) => (
             <Card
@@ -50,7 +62,7 @@ const Favorites = () => {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 };
 
